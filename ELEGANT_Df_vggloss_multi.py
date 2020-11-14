@@ -506,7 +506,7 @@ class ELEGANT(object):
                 line_name = line.strip().split()[0]
                 input_name=line_name.split('_')[0] + '_' + line_name.split('_')[1] + '.jpg'  # exp
                 target_name=line_name.split('_')[2] + '_' + line_name.split('_')[3]  # nature
-                nature_img = Image.open(self.config.data_dir+"/align_5p/" + target_name)
+                nature_img = Image.open(self.config.data_dir+"/data/" + target_name)
                 name = input_name.split('.')[0] + '_' + target_name
                 nature_img.save(self.config.gan_dir+'/'+name)
         f_gan.close()
@@ -709,9 +709,9 @@ def main():
         random.shuffle(test_exp_list)
         random.shuffle(test_exp_list_b)
         for item in test_exp_list[:10]:
-            test_input = config.data_dir+'/align_5p/' + item
+            test_input = config.data_dir+'/data/' + item
             for exp in test_exp_list_b[:10]:
-                test_target = config.data_dir+'/align_5p/' + exp
+                test_target = config.data_dir+'/data/' + exp
                 model.swap(test_idx, attribute_id, attribute_id_b, test_input, test_target)
                 print(test_idx)
                 test_idx = test_idx + 1

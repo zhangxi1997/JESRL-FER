@@ -163,7 +163,7 @@ class MultiCelebADataset(object):
                 all_labels_list.append([int(x.split()[col_id]) for col_id in col_ids])
 
             for idx in range(len(all_labels_list)):
-                im_names_list.append(os.path.join(self.config.data_dir, 'align_5p/train_{:04d}.jpg'.format(idx+1)))
+                im_names_list.append(os.path.join(self.config.data_dir, 'data/train_{:04d}.jpg'.format(idx+1)))
 
         self.im_names = np.array(im_names_list)
         self.all_labels = np.array(all_labels_list, dtype=np.float32)
@@ -204,7 +204,7 @@ class SingleDataset_VGG(Dataset):
 
     def __getitem__(self,idx):
         if self.img_type == 'raw':
-            image = Image.open('../datasets/multipie/align_5p/'+self.im_names[idx])
+            image = Image.open('../datasets/multipie/data/'+self.im_names[idx])
             fx = torch.FloatTensor(2,4).zero_()
             
         if self.img_type == 'gan':
@@ -250,8 +250,8 @@ class SingleDataset_GAN(Dataset):
         return len(self.target_names)
 
     def __getitem__(self,idx):
-        input_image_ = Image.open(self.config.data_dir+'/align_5p/'+self.input_names[idx])
-        target_image_ = Image.open(self.config.data_dir+'/align_5p/'+self.target_names[idx])
+        input_image_ = Image.open(self.config.data_dir+'/data/'+self.input_names[idx])
+        target_image_ = Image.open(self.config.data_dir+'/data/'+self.target_names[idx])
 
         input_image = self.transform(input_image_)
         target_image = self.transform(target_image_)
