@@ -403,7 +403,7 @@ class ELEGANT(object):
         self.D1.train()
         self.D2.train()
         
-        for self.step in range(0, 1+int(self.dataset.datanum / self.config.nchw[0] )):
+        for self.step in range(0, 1):#+int(self.dataset.datanum / self.config.nchw[0] )):
             
             self.G_lr_scheduler.step()
             self.D_lr_scheduler.step()
@@ -581,7 +581,7 @@ class ELEGANT(object):
         return out
 
 
-    def swap(self,test_idx,attribute_id, attribute_id_b,test_input, test_target):
+    def swap(self,attribute_id, attribute_id_b,test_input,test_target):
         '''
         swap attributes of two images.
         '''
@@ -594,7 +594,7 @@ class ELEGANT(object):
         self.forward_G()
         img = torch.cat((self.B, self.A, self.D, self.C, self.R_D, self.R_C), -1)
         img = np.transpose(self.img_denorm(img.data.cpu().numpy()), (0,2,3,1)).astype(np.uint8)[0]
-        Image.fromarray(img).save(os.path.join(self.config.test_dir ,str(attribute_id)+'_'+str(attribute_id_b)+'_'+str(test_idx)+'.jpg'))
+        Image.fromarray(img).save(os.path.join(self.config.test_dir ,str(attribute_id)+'_'+str(attribute_id_b)+'.jpg'))
 
 
 def main():
@@ -605,11 +605,9 @@ def main():
     parser.add_argument('-r', '--restore', default=None, action='store', type=int, help='Specify checkpoint id to restore')
 
     # test parameters
-    parser.add_argument('--swap', action='store_true', help='Swap attributes.')
     parser.add_argument('--swap_list', default=[], nargs='+', type=int, help='Specify the attributes ids for swapping.')
-    parser.add_argument('-i', '--input', type=str, help='Specify the input image.')
-    parser.add_argument('-t', '--target', nargs='+', type=str, help='Specify target images.')
-    parser.add_argument('-s', '--size', nargs='+', type=int, help='Specify the interpolation size.')
+    parser.add_argument('--input', type=str, help='Specify the input image (Ia)')
+    parser.add_argument('--target', type=str, help='Specify the input image (Ib)')
 
     # loss parameters
     parser.add_argument('--vgg_loss', action='store_true', default = True, help='use vgg_loss or not')
@@ -643,10 +641,6 @@ def main():
     all_start = time.clock()
 
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu[0]
-    if args.mode == 'test':
-        assert args.swap + args.linear + args.matrix == 1
-        assert args.restore is not None
-        assert args.VGG is False
 
     model = ELEGANT(args)
 
@@ -679,14 +673,11 @@ def main():
                     epoch_vgg += 1
 
 
-    elif args.mode == 'test' and args.swap:
-        assert len(args.swap_list) == 2 #and args.input and len(args.target) == 1
+    elif args.mode == 'test':
+        assert len(args.swap_list) == 2
         attribute_test = args.attributes[int(args.swap_list[0])] # happy
         attribute_test_b = args.attributes[int(args.swap_list[1])]  # sad
 
-        test_exp_list = []
-        test_exp_list_b = []
-        # test_natural_list = []
         f = open(config.data_dir+"/list_attr_multipie_test.txt")
         lines = f.readlines()
         for idx, item in enumerate(lines[1].strip().split()):
@@ -695,26 +686,7 @@ def main():
             if item == attribute_test_b:
                 attribute_id_b = idx
 
-        for line in lines[2:]:
-            label = line.strip().split()[int(attribute_id) + 1]
-            name = line.strip().split()[0]
-            if label == '1':
-                test_exp_list.append(name)
-            label_b = line.strip().split()[int(attribute_id_b) + 1]
-            name_b = line.strip().split()[0]
-            if label_b == '1':
-                test_exp_list_b.append(name_b)
-
-        test_idx = 0
-        random.shuffle(test_exp_list)
-        random.shuffle(test_exp_list_b)
-        for item in test_exp_list[:10]:
-            test_input = config.data_dir+'/data/' + item
-            for exp in test_exp_list_b[:10]:
-                test_target = config.data_dir+'/data/' + exp
-                model.swap(test_idx, attribute_id, attribute_id_b, test_input, test_target)
-                print(test_idx)
-                test_idx = test_idx + 1
+        model.swap(attribute_id, attribute_id_b, args.input, args.target)
 
     else:
         raise NotImplementationError()

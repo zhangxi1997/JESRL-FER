@@ -36,7 +36,7 @@ class Classify(object):
         self.config = config_VGG
         self.attributes = args.attributes
         self.n_attributes = len(self.attributes)
-        image_f = open("../datasets/multipie/images.list")
+        image_f = open("dataset/multipie/images.list")
 
         if not os.path.isdir(self.config.checkpoint):
             os.mkdir(self.config.checkpoint)
@@ -144,7 +144,7 @@ class Classify(object):
         self.gan_labels = []
 
         # load new gan-pic every time
-        f_gan = open("../datasets/multipie/images_gan_nature.list")
+        f_gan = open("dataset/multipie/images_gan_nature.list")
         if self.args.ablation: # ablation study
             ablation_num = 2
             f_gan_lines = f_gan.readlines()
