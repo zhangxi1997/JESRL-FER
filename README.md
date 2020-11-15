@@ -40,7 +40,7 @@ $ python train.py -a disgust scream smile squint surprise neutral --mode train -
 To swap the expressions between two unpaired images, you can run the following code. And `--swap_list 3 6` means the expression id of the input image and target image, respectively. The generated image is saved as `result.jpg`, which includes the original images and generated images with exchanged expressions.
 
 ```
-$ python exp_synthesis.py -a disgust scream smile squint surprise neutral --swap_list 2 5 --input ./images/smile.jpg --target ./images/neutral.jpg --gpu 0
+$ python train.py -a disgust scream smile squint surprise neutral --swap_list 2 5 --input ./images/smile.jpg --target ./images/neutral.jpg --mode test --gpu 0
 ```
 
 #### 2.Facial Expression Recognition
