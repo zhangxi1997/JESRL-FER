@@ -26,21 +26,26 @@ Besides, please ensure that you have the following directory tree structure in y
 
 ## Traininig
 
+To train the facial expression synthesis and facial expression recognition model on the Multi-PIE dataset, you can run the following code.
+Here `-a disgust scream smile squint surprise neutral` indicates the expression names.
+Notes. Please do not change the order of expressions in `-a disgust scream smile squint surprise neutral`
+
+```
+$ python train.py -a disgust scream smile squint surprise neutral --mode train --multi_add_gan --alpha5 --gpu 0 
+```
 
 ## Testing
 #### 1.Facial expression synthesis
 
-To swap the expressions between two unpaired images, you can run the following code. Here `-a surprised fearful disgusted happy sad angry neutral` indicates the expression names. And `--swap_list 3 6` means the expression id of the input image and target image, respectively. The generated image is saved as `result.jpg`, which includes the original images and generated images with exchanged expressions.
+To swap the expressions between two unpaired images, you can run the following code. And `--swap_list 3 6` means the expression id of the input image and target image, respectively. The generated image is saved as `result.jpg`, which includes the original images and generated images with exchanged expressions.
 
-Notes. Please do not change the order of expressions in `-a surprised fearful disgusted happy sad angry neutral`
 ```
-$ python exp_synthesis.py -a surprised fearful disgusted happy sad angry neutral --swap_list 3 6 --input ./images/happy.jpg --target ./images/neutral.jpg --gpu 0
+$ python exp_synthesis.py -a disgust scream smile squint surprise neutral --swap_list 2 5 --input ./images/smile.jpg --target ./images/neutral.jpg --gpu 0
 ```
 
 #### 2.Facial Expression Recognition
 
 To evaluate the facial expression recognition model, you can run the following  code.
 ```
-$ python FER.py --multipie --gpu 0 # run on the Multi-PIE dataset
-$ python FER.py --raf --gpu 0  # run on the RAF-DB
+$ python test_matrix_multi.py --multipie --gpu 0 # run on the Multi-PIE dataset
 ```
