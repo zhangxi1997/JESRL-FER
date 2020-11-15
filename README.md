@@ -47,5 +47,5 @@ $ python train.py -a disgust scream smile squint surprise neutral --swap_list 2 
 
 To evaluate the facial expression recognition model, you can run the following  code.
 ```
-$ python test_matrix_multi.py --multipie --gpu 0 # run on the Multi-PIE dataset
+$ python test_matrix_multi.py --data 2 --resume_dir checkpoint/checkpoint_multipie/VGG --gpu 0 # run on the Multi-PIE dataset
 ```
