@@ -27,13 +27,13 @@ class Classify(object):
         self.config = config
 
         if self.args.data == 2:#multipie
-            image_f = open("../datasets/multipie/images.list")
+            image_f = open("dataset/multipie/images.list")
             self.labels = ['DI', 'SC', 'SM', 'SQ', 'SU', 'NE']
         if self.args.data == 3:#raf
-            image_f = open("../datasets/RAF/basic/images_vgg.list")
+            image_f = open("dataset/RAF/basic/images_vgg.list")
             self.labels = ['SU', 'FE', 'DI', 'HA', 'SA','AN','NE']
         if self.args.data == 1:#mmi
-            image_f = open("../datasets/mmi/images_vgg.list")
+            image_f = open("dataset/mmi/images_vgg.list")
             self.labels = ['AN', 'DI', 'FE', 'HA', 'SA','SU']
 
         self.test_im_names = []
