@@ -24,7 +24,7 @@ Besides, please ensure that you have the following directory tree structure in y
 │       ├──── images_test.list<br/>
 
 
-## Traininig
+## Training
 
 To train the facial expression synthesis and facial expression recognition model on the Multi-PIE dataset, you can run the following code.
 Here `-a disgust scream smile squint surprise neutral` indicates the expression names.
@@ -49,3 +49,4 @@ To evaluate the facial expression recognition model, you can run the following  
 ```
 $ python test_matrix_multi.py --data 2 --resume_dir checkpoint/checkpoint_multipie/VGG --gpu 0 # run on the Multi-PIE dataset
 ```
+pre-trained model: https://pan.baidu.com/s/1fI_goqaanihIrGyT77ZIqg  password: 8vdb
