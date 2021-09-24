@@ -1,5 +1,5 @@
 # JESRL-FER
-The code for the paper "Joint Expression Synthesis and Representation Learning for Facial Expression Recognition"
+The code for the IEEE TSCVT paper "Joint Expression Synthesis and Representation Learning for Facial Expression Recognition"
 
 ## Pre-requisites
  (1) Python 3.6.7.
@@ -50,3 +50,17 @@ To evaluate the facial expression recognition model, you can run the following  
 $ python test_matrix_multi.py --data 2 --resume_dir checkpoint/checkpoint_multipie/VGG --gpu 0 # run on the Multi-PIE dataset
 ```
 pre-trained model: https://pan.baidu.com/s/1fI_goqaanihIrGyT77ZIqg  password: 8vdb
+
+
+# Citations
+If you make use of this repository for your research, please cite the following paper:
+
+```
+@article{zhang2021joint,
+  title={Joint Expression Synthesis and Representation Learning for Facial Expression Recognition},
+  author={Zhang, Xi and Zhanga, Feifei and Xu, Changsheng},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology},
+  year={2021},
+  publisher={IEEE}
+}
+```
