@@ -52,7 +52,7 @@ $ python test_matrix_multi.py --data 2 --resume_dir checkpoint/checkpoint_multip
 pre-trained model: https://pan.baidu.com/s/1fI_goqaanihIrGyT77ZIqg  password: 8vdb
 
 
-# Citations
+## Citations
 If you make use of this repository for your research, please cite the following paper:
 
 ```
